@@ -15,6 +15,7 @@ public class MyLInkedlist {
         }
         else {
             node.next=head;
+            head=node;
         }
         size++;
     }
@@ -26,9 +27,11 @@ public class MyLInkedlist {
         }
         if(idx==0) {
             insertAtFirst(val);
+            return ;
         }
-        else if(idx==size+1) {
+        else if(idx==size) {
             insertAtLast(val);
+            return ;
         }
         else {
             Node node =new Node(val);
@@ -49,10 +52,77 @@ public class MyLInkedlist {
         }
         Node temp=head;
         while(temp!=null) {
-            System.out.println(temp.data);
+            System.out.print(temp.data+"->");
             temp=temp.next;
         }
+        System.out.println("END");
     }
+    
+    public int DelAtStart() {
+        if( head ==null) {
+            System.out.println("The List is Empty:");
+            return -1 ;
+        }
+        int val=head.data;
+        head=head.next;
+        if(head==null) {
+            tail=null;
+        }
+        size--;
+        return val;
+    }
+    
+    
+    public int DelAtEnd() {
+        if( head ==null) {
+            System.out.println("The List is Empty:");
+            return -1 ;
+        }
+         if(head.next==null) {
+            head=tail=null;
+        }
+        else {
+            Node temp=head;
+            while(temp.next!=tail) {
+                temp=temp.next;
+            }
+            int val=tail.data;
+            tail=temp;
+            tail.next=null;
+            size--;
+            return val;
+        }
+        return -1;
+    }
+    public int DeleteAtIdx(int idx) {
+        if(head==null){
+        System.out.println("List is empty");
+        }
+     if(idx < 0  ||  idx > size-1) {
+         System.out.println("Invalid arguments");
+         
+     }
+     else if(idx==0){
+        return DelAtStart();
+     }
+     else if(idx==size-1){
+       return  DelAtEnd();
+     }
+     else{
+         Node temp=head;
+         for(int i=0;i<idx-1;i++){
+             temp=temp.next;
+         }
+         int val=temp.next.data;
+         temp.next=temp.next.next;
+         
+         size--;
+         
+         return val;
+     }
+     return -1;
+    }
+  
     
     
     public void insertAtLast(int val) {
@@ -75,10 +145,6 @@ public class MyLInkedlist {
         }
         
         
-    }
-    
-        
-        
-        
+    }   
 
 }
